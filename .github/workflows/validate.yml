@@ -23,3 +23,5 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Test the interactive studio and Python/JS job graph parity
         run: node --test tests/test_studio.cjs
+      - name: Verify manually tracked execution gates and safe resume
+        run: node --test tests/test_run.cjs
