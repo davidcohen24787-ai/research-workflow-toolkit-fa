@@ -5,11 +5,11 @@
 **Creative Commons Attribution 4.0 International — CC BY 4.0**  
 نسخه رسمی: https://creativecommons.org/licenses/by/4.0/legalcode
 
-استفاده، اقتباس، بازنشر و کاربرد تجاری با رعایت انتساب، پیوند مجوز و اعلام تغییرات مجاز است. نام این پروژه را در انتساب ذکر کنید: «Research Workflow Toolkit (Persian-first), contributors, v0.2».
+استفاده، اقتباس، بازنشر و کاربرد تجاری با رعایت انتساب، پیوند مجوز و اعلام تغییرات مجاز است. نام این پروژه را در انتساب ذکر کنید: «Research Workflow Toolkit (Persian-first), contributors, v0.3.0-rc1».
 
 ## کدها
 
-**MIT License** (کدهای پوشه `tools/`, `tests/` و فایل CI):
+**MIT License** (کدهای پوشه‌های `tools/` و `tests/`، فایل‌های JavaScript و CSS در `docs/`، اسکریپت‌های تولید محتوای استودیو و فایل CI):
 
 Copyright (c) 2026 Research Workflow Toolkit contributors
 

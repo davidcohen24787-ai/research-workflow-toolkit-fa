@@ -1,0 +1,952 @@
+{
+  "catalog_version": "0.3.0-rc1",
+  "workflows": [
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W01",
+      "title": "صورت‌بندی مسئله و پرسش",
+      "research_stage": "W01",
+      "purpose": "تعریف مرز مسئله، پرسش اصلی، تعاریف عملیاتی و پرسش‌های متعلق به دیگر بخش‌ها",
+      "required_inputs": "صورت مسئله، هدف مطالعه، پیشینه مقدماتی",
+      "expected_output": "پرسش‌های رتبه‌بندی‌شده و نقشه مالکیت",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "پژوهشگر پرسش نهایی و دامنه را تصویب کند",
+      "tasks": [
+        {
+          "id": "scope",
+          "title": "استخراج محدودیت‌ها و ذی‌نفعان",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W01_scope.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "alternatives",
+          "title": "ساخت دو صورت‌بندی واقعاً متفاوت",
+          "role": "specialist",
+          "depends_on": [
+            "scope"
+          ],
+          "output": "W01_alternatives.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "critique",
+          "title": "مقایسه با معیارهای پوشش و آزمون‌پذیری",
+          "role": "reviewer",
+          "depends_on": [
+            "alternatives"
+          ],
+          "output": "W01_critique.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "freeze",
+          "title": "تثبیت دامنه و تعریف معیار پذیرش",
+          "role": "human",
+          "depends_on": [
+            "critique"
+          ],
+          "output": "W01_freeze.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "medium"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W02",
+      "title": "پروتکل و طرح پژوهش",
+      "research_stage": "W02",
+      "purpose": "ساخت طرح قابل بازتولید، معیار ورود و خروج، روش گردآوری و طرح تحلیل پیش از اجرا",
+      "required_inputs": "پرسش مصوب W01، نوع مطالعه، منابع و ملاحظات اخلاقی",
+      "expected_output": "پروتکل نسخه‌دار و جدول تصمیم‌ها",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "تأیید پروتکل پیش از اجرای مراحل وابسته",
+      "tasks": [
+        {
+          "id": "design",
+          "title": "انتخاب روش متناسب با پرسش",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W02_design.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "criteria",
+          "title": "ثبت معیارها، متغیرها و آستانه‌های ازپیش‌تعیین‌شده",
+          "role": "specialist",
+          "depends_on": [
+            "design"
+          ],
+          "output": "W02_criteria.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "risk",
+          "title": "ارزیابی سوگیری، اخلاق، امکان‌پذیری و تحلیل حساسیت",
+          "role": "reviewer",
+          "depends_on": [
+            "criteria"
+          ],
+          "output": "W02_risk.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "approve",
+          "title": "تأیید طرح و قفل نسخهٔ پروتکل",
+          "role": "human",
+          "depends_on": [
+            "risk"
+          ],
+          "output": "W02_approve.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W03",
+      "title": "جست‌وجو و کشف منابع",
+      "research_stage": "W03",
+      "purpose": "طراحی و اجرای راهبرد جست‌وجو با تاریخ و پایگاه، ثبت نتایج و شکاف‌های دسترسی",
+      "required_inputs": "پروتکل، کلیدواژه‌ها، پایگاه‌های مجاز",
+      "expected_output": "لاگ جست‌وجو و فهرست اولیه منابع با شناسه",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "تأیید پوشش راهبرد جست‌وجو پیش از اعلام کفایت",
+      "tasks": [
+        {
+          "id": "queries",
+          "title": "تدوین رشته‌های جست‌وجو و مترادف‌ها",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W03_queries.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "execute",
+          "title": "ثبت پایگاه، تاریخ، رشته دقیق و نتایج مشاهده‌شده",
+          "role": "specialist",
+          "depends_on": [
+            "queries"
+          ],
+          "output": "W03_execute.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "dedup",
+          "title": "همسان‌سازی شناسه‌ها و حذف تکرار با ثبت لاگ",
+          "role": "tool",
+          "depends_on": [
+            "execute"
+          ],
+          "output": "W03_dedup.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "audit",
+          "title": "بررسی خلأ اصطلاحات و محدودیت پایگاه",
+          "role": "reviewer",
+          "depends_on": [
+            "dedup"
+          ],
+          "output": "W03_audit.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "accept",
+          "title": "تصویب انسانی نتیجهٔ علمی و تعیین وضعیت نهایی",
+          "role": "human",
+          "depends_on": [
+            "audit"
+          ],
+          "output": "W03_accept.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "medium"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W04",
+      "title": "غربالگری و انتخاب منابع",
+      "research_stage": "W04",
+      "purpose": "اعمال معیارهای پروتکل بر رکوردها و مستندسازی علت ورود یا خروج",
+      "required_inputs": "لاگ W03، پروتکل W02، چکیده و در صورت لزوم متن کامل",
+      "expected_output": "جدول تصمیم ورود/خروج و اختلاف‌ها",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "اختلاف مهم یا ابهام ورود با داور انسانی حل شود",
+      "tasks": [
+        {
+          "id": "triage",
+          "title": "غربال عنوان و چکیده با دلیل",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W04_triage.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "fulltext",
+          "title": "بررسی متن کاملِ واقعاً دردسترس",
+          "role": "specialist",
+          "depends_on": [
+            "triage"
+          ],
+          "output": "W04_fulltext.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "disagreement",
+          "title": "بازبینی اختلاف‌های حساس در Chat جدا",
+          "role": "reviewer",
+          "depends_on": [
+            "fulltext"
+          ],
+          "output": "W04_disagreement.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "seal",
+          "title": "قفل کردن مجموعه انتخاب‌شده",
+          "role": "human",
+          "depends_on": [
+            "disagreement"
+          ],
+          "output": "W04_seal.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W05",
+      "title": "خواندن منبع و استخراج شواهد",
+      "research_stage": "W05",
+      "purpose": "برای هر منبع یک مالک؛ ساخت ماتریس، نقد در گذر جدا و پالایش نتیجه",
+      "required_inputs": "منابع منتخب و نسخه‌های واقعاً قابل خواندن",
+      "expected_output": "ماتریس شاهد منبع‌به‌ادعا با مکان‌یاب و وضعیت دسترسی",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "پیش از استناد، نسبت هر شاهد به ادعا و نسخه منبع تأیید شود",
+      "tasks": [
+        {
+          "id": "matrix",
+          "title": "گذر ۱: استخراج ادعامحور از منبع اصلی",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W05_matrix.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "selfreview",
+          "title": "گذر ۲: چالش مستقل زمانی در همان Chat، نه استقلال بین‌عاملی",
+          "role": "specialist",
+          "depends_on": [
+            "matrix"
+          ],
+          "output": "W05_selfreview.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "filter",
+          "title": "گذر ۳: حذف ردیف‌های بی‌ارزش و نگهداشت قیود",
+          "role": "specialist",
+          "depends_on": [
+            "selfreview"
+          ],
+          "output": "W05_filter.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "verify",
+          "title": "کنترل مکان‌یاب و شاهد مهم توسط داور دیگر",
+          "role": "reviewer",
+          "depends_on": [
+            "filter"
+          ],
+          "output": "W05_verify.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "accept",
+          "title": "تصویب انسانی نتیجهٔ علمی و تعیین وضعیت نهایی",
+          "role": "human",
+          "depends_on": [
+            "verify"
+          ],
+          "output": "W05_accept.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "medium"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W06",
+      "title": "سنتز ادعامحور و تعیین خلأ",
+      "research_stage": "W06",
+      "purpose": "ترکیب شواهد بر اساس پرسش، کیفیت، مستقیم‌بودن و تعارض؛ تفکیک ندانسته‌ها",
+      "required_inputs": "ماتریس‌های پذیرفته‌شده و پروتکل",
+      "expected_output": "Evidence Packet شامل ادعا، شاهد، ضدشاهد، محدودیت و شکاف",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "ادعای اشباع بدون بررسی خانواده‌های لازم ممنوع",
+      "tasks": [
+        {
+          "id": "map",
+          "title": "تجمیع ادعاها و دسته‌بندی شاهد مستقیم/انتقالی",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W06_map.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "conflict",
+          "title": "تحلیل تعارض و وابستگی منابع",
+          "role": "specialist",
+          "depends_on": [
+            "map"
+          ],
+          "output": "W06_conflict.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "gaps",
+          "title": "ثبت خلأ مؤثر و وضعیت‌های متفاوت آمادگی",
+          "role": "specialist",
+          "depends_on": [
+            "conflict"
+          ],
+          "output": "W06_gaps.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "adjudicate",
+          "title": "داوری علمیِ پرریسک بر اساس متن شاهد",
+          "role": "reviewer",
+          "depends_on": [
+            "gaps"
+          ],
+          "output": "W06_adjudicate.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "accept",
+          "title": "تصویب انسانی نتیجهٔ علمی و تعیین وضعیت نهایی",
+          "role": "human",
+          "depends_on": [
+            "adjudicate"
+          ],
+          "output": "W06_accept.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "medium"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W07",
+      "title": "طراحی روش و مطالعه تجربی",
+      "research_stage": "W07",
+      "purpose": "تبدیل پرسش و شواهد به پروتکل قابل اجرا شامل نمونه، سنجه، تحلیل و کنترل سوگیری",
+      "required_inputs": "W01، W02، W06 در صورت نیاز، منابع روش‌شناختی",
+      "expected_output": "طرح مطالعه با ملاحظات اخلاقی و معیار توقف",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "کار انسانی/اخلاقی حساس باید پیش از جمع‌آوری داده مجوز لازم بگیرد",
+      "tasks": [
+        {
+          "id": "options",
+          "title": "تولید گزینه‌های طراحی و مقایسه محدودیت‌ها",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W07_options.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "operationalize",
+          "title": "تعریف متغیرها، سنجه‌ها، داده و تحلیل پیشنهادی",
+          "role": "specialist",
+          "depends_on": [
+            "options"
+          ],
+          "output": "W07_operationalize.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "critique",
+          "title": "نقد سوگیری و کفایت اعتبار",
+          "role": "reviewer",
+          "depends_on": [
+            "operationalize"
+          ],
+          "output": "W07_critique.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "authorization",
+          "title": "تأیید انسانی مجوزها و شروع مطالعه",
+          "role": "human",
+          "depends_on": [
+            "critique"
+          ],
+          "output": "W07_authorization.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W08",
+      "title": "مدیریت داده و تضمین کیفیت",
+      "research_stage": "W08",
+      "purpose": "ثبت منشأ داده، رضایت/مجوز، فرهنگ‌داده، قواعد پاک‌سازی و ردگیری تغییرات",
+      "required_inputs": "داده مجاز، پروتکل، سیاست دسترسی و حریم خصوصی",
+      "expected_output": "داده نسخه‌دار، فرهنگ‌داده، گزارش کیفیت و تغییرات",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "پاک‌سازی مخرب یا انتشار داده محرمانه بدون تأیید ممنوع",
+      "tasks": [
+        {
+          "id": "inventory",
+          "title": "فهرست متغیرها و منشأ و حقوق داده",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W08_inventory.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "checks",
+          "title": "اجرای کنترل نوع، تکرار، فقدان و دامنه",
+          "role": "tool",
+          "depends_on": [
+            "inventory"
+          ],
+          "output": "W08_checks.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "audit",
+          "title": "بررسی اثر پاک‌سازی و نشت احتمالی",
+          "role": "reviewer",
+          "depends_on": [
+            "checks"
+          ],
+          "output": "W08_audit.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "freeze",
+          "title": "ثبت نسخه داده قابل تحلیل",
+          "role": "human",
+          "depends_on": [
+            "audit"
+          ],
+          "output": "W08_freeze.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W09",
+      "title": "تحلیل داده و بازتولید محاسبات",
+      "research_stage": "W09",
+      "purpose": "نوشتن کد قابل اجرا، آزمون، گزارش عدم‌قطعیت و تحلیل حساسیت",
+      "required_inputs": "داده تأییدشده W08 و پروتکل تحلیل W02/W07",
+      "expected_output": "کد، لاگ اجرا، نتایج و گزارش حساسیت",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "تفسیر علمی و انحراف از پروتکل با پژوهشگر تصویب شود",
+      "tasks": [
+        {
+          "id": "plan",
+          "title": "تبدیل پرسش به آزمون‌ها و خروجی‌های محاسباتی",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W09_plan.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "code",
+          "title": "پیاده‌سازی کنترل‌شده با نسخه و seed",
+          "role": "tool",
+          "depends_on": [
+            "plan"
+          ],
+          "output": "W09_code.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "test",
+          "title": "تست، کنترل leakage و بازاجرای مستقل",
+          "role": "reviewer",
+          "depends_on": [
+            "code"
+          ],
+          "output": "W09_test.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "interpret",
+          "title": "تفسیر و ثبت انحراف از پروتکل",
+          "role": "human",
+          "depends_on": [
+            "test"
+          ],
+          "output": "W09_interpret.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W10",
+      "title": "نگارش علمی خلاقانه و مستند",
+      "research_stage": "W10",
+      "purpose": "پیش‌نویس‌های متفاوت، انتخاب نقادانه، شواهد واقعی، توضیح عملیاتی، ویراستاری و تأیید",
+      "required_inputs": "پرسش‌ها و Evidence Packetهای پذیرفته‌شده، شیوه‌نامه",
+      "expected_output": "متن مستند و قابل‌وارسی با فهرست ارجاعات",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "هیچ متن پیش از تأیید صریح پژوهشگر FINAL نشود",
+      "tasks": [
+        {
+          "id": "drafts",
+          "title": "دو پیش‌نویس مستقلِ فکری بدون جعل استناد",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W10_drafts.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "choose",
+          "title": "مقایسه، انتخاب پایه و تلفیق گزینشی",
+          "role": "specialist",
+          "depends_on": [
+            "drafts"
+          ],
+          "output": "W10_choose.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "sources",
+          "title": "بازبینی شواهد واقعی و نگارش مستند",
+          "role": "specialist",
+          "depends_on": [
+            "choose"
+          ],
+          "output": "W10_sources.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "deepreview",
+          "title": "ممیزی پوشش، دلالت، محدودیت و خوانایی",
+          "role": "reviewer",
+          "depends_on": [
+            "sources"
+          ],
+          "output": "W10_deepreview.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "approve",
+          "title": "تأیید متن نهایی و انتشار/ثبت کتابنامه",
+          "role": "human",
+          "depends_on": [
+            "deepreview"
+          ],
+          "output": "W10_approve.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "medium"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W11",
+      "title": "داوری مستقل و اصلاح کنترل‌شده",
+      "research_stage": "W11",
+      "purpose": "چند داور مستقل با معیار مشترک؛ داور حکم، تیکت مجاز، ویرایش حداقلی و diff",
+      "required_inputs": "baseline قفل‌شده، معیارها، اسناد شاهد، گزارش‌ها",
+      "expected_output": "گزارش اختلاف‌ها، فهرست تیکت‌ها، diff و نسخه نهایی پیشنهادی",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "حکم علمی حساس و ویرایش خارج از تیکت مجوز انسانی لازم دارد",
+      "tasks": [
+        {
+          "id": "reviewers",
+          "title": "داوری مستقل و بدون مشاهده گزارش یکدیگر",
+          "role": "reviewer",
+          "depends_on": [],
+          "output": "W11_reviewers.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "adjudicate",
+          "title": "داوری بر اساس شواهد نه رأی اکثریت",
+          "role": "reviewer",
+          "depends_on": [
+            "reviewers"
+          ],
+          "output": "W11_adjudicate.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "tickets",
+          "title": "فقط تغییرات پذیرفته‌شده را تیکت کن",
+          "role": "specialist",
+          "depends_on": [
+            "adjudicate"
+          ],
+          "output": "W11_tickets.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "edit",
+          "title": "اعمال محدود و diff سطربه‌سطر",
+          "role": "tool",
+          "depends_on": [
+            "tickets"
+          ],
+          "output": "W11_edit.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "approve",
+          "title": "تأیید انسانیِ نتیجه یا حفظ بی‌تغییر baseline",
+          "role": "human",
+          "depends_on": [
+            "edit"
+          ],
+          "output": "W11_approve.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    },
+    {
+      "schema_version": "0.2",
+      "workflow_id": "W12",
+      "title": "انتشار، شفافیت و بازاستفاده",
+      "research_stage": "W12",
+      "purpose": "ساخت بسته بازتولید، بررسی مجوز و داده حساس، تطابق استناد و انتخاب خروجی عمومی",
+      "required_inputs": "نسخه تأییدشده متن، کد/داده قابل انتشار و مجوزها",
+      "expected_output": "Release Packet شامل مستندات، داده/کد مجاز و گزارش بازتولید",
+      "modes": [
+        "solo",
+        "supervised",
+        "agentic-conditional"
+      ],
+      "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+      "decision_owner": "researcher",
+      "human_gate": "ساخت مخزن عمومی و انتشار نهایی فقط پس از تأیید صریح",
+      "tasks": [
+        {
+          "id": "inventory",
+          "title": "تشخیص مواد مجاز و غیرمجاز برای انتشار",
+          "role": "specialist",
+          "depends_on": [],
+          "output": "W12_inventory.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "reproduce",
+          "title": "اجرای دستورهای بازتولید و ثبت وابستگی",
+          "role": "tool",
+          "depends_on": [
+            "inventory"
+          ],
+          "output": "W12_reproduce.md",
+          "gate": "DELIVERY_CHECK"
+        },
+        {
+          "id": "privacy",
+          "title": "بررسی داده حساس و حقوق نشر/انتساب",
+          "role": "reviewer",
+          "depends_on": [
+            "reproduce"
+          ],
+          "output": "W12_privacy.md",
+          "gate": "INDEPENDENT_REVIEW"
+        },
+        {
+          "id": "release",
+          "title": "تأیید انسانی انتشار عمومی و ثبت نسخه",
+          "role": "human",
+          "depends_on": [
+            "privacy"
+          ],
+          "output": "W12_release.md",
+          "gate": "HUMAN_APPROVAL"
+        }
+      ],
+      "acceptance": [
+        "همه خروجی‌های لازم واقعاً وجود دارند",
+        "منبع، نسخه و محدودیت دسترسی روشن است",
+        "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+        "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+      ],
+      "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+      "risk_tier": "high"
+    }
+  ],
+  "recipes": [
+    {
+      "schema_version": "0.2",
+      "recipe_id": "computational-design",
+      "title": "پژوهش محاسباتی و طراحی سامانه",
+      "workflows": [
+        "W01",
+        "W02",
+        "W03",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "optional_workflows": [
+        "W04"
+      ],
+      "adaptation_notes": "نشت داده، بازتولید آزمایش، baseline، انحراف معیار و بررسی ریسک عملیاتی را ثبت کنید. خروجی کد جای شاهد تجربی نیست.",
+      "reporting_guideline_hint": "reproducible computation",
+      "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+      "human_approvals_required": true
+    },
+    {
+      "schema_version": "0.2",
+      "recipe_id": "conceptual",
+      "title": "پژوهش مفهومی و نظری",
+      "workflows": [
+        "W01",
+        "W03",
+        "W05",
+        "W06",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "optional_workflows": [
+        "W02"
+      ],
+      "adaptation_notes": "از پروتکل رسمی کامل فقط در صورت الزام روش یا داوری استفاده کنید. شواهد منبعی را از سنتز طراحی جدا کنید.",
+      "reporting_guideline_hint": "methodological fit",
+      "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+      "human_approvals_required": true
+    },
+    {
+      "schema_version": "0.2",
+      "recipe_id": "qualitative-study",
+      "title": "پژوهش کیفی",
+      "workflows": [
+        "W01",
+        "W02",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "optional_workflows": [
+        "W03",
+        "W05",
+        "W06"
+      ],
+      "adaptation_notes": "W09 را برای کدگذاری و تحلیل کیفی متناسب بازپیکربندی کنید؛ آن را معادل اجرای آزمون کمی تلقی نکنید. بازبینی انسانی متن مصاحبه و محرمانگی لازم است.",
+      "reporting_guideline_hint": "SRQR/COREQ when appropriate",
+      "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+      "human_approvals_required": true
+    },
+    {
+      "schema_version": "0.2",
+      "recipe_id": "quantitative-study",
+      "title": "پژوهش تجربی/کمی",
+      "workflows": [
+        "W01",
+        "W02",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "optional_workflows": [
+        "W03",
+        "W05",
+        "W06"
+      ],
+      "adaptation_notes": "قبل از جمع‌آوری داده انسانی، مجوز اخلاقی لازم. نوع مطالعه راهنمای گزارش را تعیین می‌کند؛ از STROBE یا CONSORT به‌صورت خودکار برای هر طرح استفاده نکنید.",
+      "reporting_guideline_hint": "study-specific reporting",
+      "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+      "human_approvals_required": true
+    },
+    {
+      "schema_version": "0.2",
+      "recipe_id": "systematic-review",
+      "title": "مرور نظام‌مند",
+      "workflows": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "optional_workflows": [],
+      "adaptation_notes": "پروتکل، ثبت راهبرد جست‌وجو، غربالگری قابل بازبینی و راهنمای گزارش PRISMA متناسب. قواعد خاص حوزه را نیز بررسی کنید.",
+      "reporting_guideline_hint": "PRISMA 2020 where applicable",
+      "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+      "human_approvals_required": true
+    }
+  ]
+}
