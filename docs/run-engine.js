@@ -14,6 +14,16 @@
     if (!v || v.length > limit) fail(`متن باید بین ۱ تا ${limit} نویسه باشد.`);
     return v;
   }
+  function safeLedger(input, fields) {
+    if(!Array.isArray(input))return [];
+    return input.slice(0,3000).filter(x=>x&&typeof x==='object'&&!Array.isArray(x)).map(item=>{
+      const safe={};for(const key of fields){const value=item[key];
+        if(typeof value==='string')safe[key]=value.slice(0,1000);
+        else if(typeof value==='boolean')safe[key]=value;
+        else if(key==='affected' && Array.isArray(value))safe[key]=value.filter(v=>typeof v==='string').slice(0,500);
+      }return safe;
+    });
+  }
   function importPlan(raw) {
     if (!raw || typeof raw !== 'object' || Array.isArray(raw)) fail('فایل JSON معتبر نیست.');
     if (raw.schema_version !== '0.2' || !Array.isArray(raw.jobs) || !raw.jobs.length || raw.jobs.length > 500)
@@ -67,7 +77,8 @@
       workflows:Array.isArray(raw.workflows)?raw.workflows.filter(x=>typeof x==='string').slice(0,50):[],
       execution_mode:raw.execution_mode||'solo', canonical_inputs:[],
       status:'MANUALLY_TRACKED_NOT_SCIENTIFICALLY_VALIDATED', jobs,
-      decisions:[],blockers:[],approval_log:[],public_release_approved:false,
+      decisions:safeLedger(raw.decisions,['kind','root','affected','note']),blockers:[],
+      approval_log:safeLedger(raw.approval_log,['job_id','reviewer','note','human_confirmed','kind']),public_release_approved:false,
       next_action:jobs.find(j=>j.status!=='ACCEPTED')?.id||null,
       _tracking_note:'پذیرش‌های ثبت‌شده خوداظهاری پژوهشگرند، نه اثبات علمی مستقل.'
     };
