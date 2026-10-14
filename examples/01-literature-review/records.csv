@@ -1,0 +1,4 @@
+id,title,access,reported_finding,flag
+EX-01,مطالعه فرضی الف,FULLTEXT_SIMULATED,همبستگی مثبت گزارش شده,not_causal
+EX-02,مطالعه فرضی ب,ABSTRACT_ONLY_SIMULATED,نتیجه کلی مثبت,method_not_visible
+EX-03,مطالعه فرضی پ,FULLTEXT_SIMULATED,نتیجه غیرهمسو,contradiction

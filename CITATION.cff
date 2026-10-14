@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this toolkit, please cite the version and its contributors. A DOI has not been assigned."
+title: "Research Workflow Toolkit (Persian-first)"
+version: 0.2.0
+date-released: 2026-10-14
+type: software
+authors:
+  - name: "Research Workflow Toolkit contributors"

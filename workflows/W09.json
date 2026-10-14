@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.2",
+  "workflow_id": "W09",
+  "title": "تحلیل داده و بازتولید محاسبات",
+  "research_stage": "W09",
+  "purpose": "نوشتن کد قابل اجرا، آزمون، گزارش عدم‌قطعیت و تحلیل حساسیت",
+  "required_inputs": "داده تأییدشده W08 و پروتکل تحلیل W02/W07",
+  "expected_output": "کد، لاگ اجرا، نتایج و گزارش حساسیت",
+  "modes": [
+    "solo",
+    "supervised",
+    "agentic-conditional"
+  ],
+  "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+  "decision_owner": "researcher",
+  "human_gate": "تفسیر علمی و انحراف از پروتکل با پژوهشگر تصویب شود",
+  "tasks": [
+    {
+      "id": "plan",
+      "title": "تبدیل پرسش به آزمون‌ها و خروجی‌های محاسباتی",
+      "role": "specialist",
+      "depends_on": [],
+      "output": "W09_plan.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "code",
+      "title": "پیاده‌سازی کنترل‌شده با نسخه و seed",
+      "role": "tool",
+      "depends_on": [
+        "plan"
+      ],
+      "output": "W09_code.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "test",
+      "title": "تست، کنترل leakage و بازاجرای مستقل",
+      "role": "reviewer",
+      "depends_on": [
+        "code"
+      ],
+      "output": "W09_test.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "interpret",
+      "title": "تفسیر و ثبت انحراف از پروتکل",
+      "role": "human",
+      "depends_on": [
+        "test"
+      ],
+      "output": "W09_interpret.md",
+      "gate": "HUMAN_APPROVAL"
+    }
+  ],
+  "acceptance": [
+    "همه خروجی‌های لازم واقعاً وجود دارند",
+    "منبع، نسخه و محدودیت دسترسی روشن است",
+    "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+    "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+  ],
+  "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+  "risk_tier": "high"
+}

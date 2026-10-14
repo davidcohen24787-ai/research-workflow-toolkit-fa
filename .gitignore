@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+*.key
+*.pem
+.local/
+private/
+secrets/
+.DS_Store

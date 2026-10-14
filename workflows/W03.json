@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.2",
+  "workflow_id": "W03",
+  "title": "جست‌وجو و کشف منابع",
+  "research_stage": "W03",
+  "purpose": "طراحی و اجرای راهبرد جست‌وجو با تاریخ و پایگاه، ثبت نتایج و شکاف‌های دسترسی",
+  "required_inputs": "پروتکل، کلیدواژه‌ها، پایگاه‌های مجاز",
+  "expected_output": "لاگ جست‌وجو و فهرست اولیه منابع با شناسه",
+  "modes": [
+    "solo",
+    "supervised",
+    "agentic-conditional"
+  ],
+  "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+  "decision_owner": "researcher",
+  "human_gate": "تأیید پوشش راهبرد جست‌وجو پیش از اعلام کفایت",
+  "tasks": [
+    {
+      "id": "queries",
+      "title": "تدوین رشته‌های جست‌وجو و مترادف‌ها",
+      "role": "specialist",
+      "depends_on": [],
+      "output": "W03_queries.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "execute",
+      "title": "ثبت پایگاه، تاریخ، رشته دقیق و نتایج مشاهده‌شده",
+      "role": "specialist",
+      "depends_on": [
+        "queries"
+      ],
+      "output": "W03_execute.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "dedup",
+      "title": "همسان‌سازی شناسه‌ها و حذف تکرار با ثبت لاگ",
+      "role": "tool",
+      "depends_on": [
+        "execute"
+      ],
+      "output": "W03_dedup.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "audit",
+      "title": "بررسی خلأ اصطلاحات و محدودیت پایگاه",
+      "role": "reviewer",
+      "depends_on": [
+        "dedup"
+      ],
+      "output": "W03_audit.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "accept",
+      "title": "تصویب انسانی نتیجهٔ علمی و تعیین وضعیت نهایی",
+      "role": "human",
+      "depends_on": [
+        "audit"
+      ],
+      "output": "W03_accept.md",
+      "gate": "HUMAN_APPROVAL"
+    }
+  ],
+  "acceptance": [
+    "همه خروجی‌های لازم واقعاً وجود دارند",
+    "منبع، نسخه و محدودیت دسترسی روشن است",
+    "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+    "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+  ],
+  "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+  "risk_tier": "medium"
+}

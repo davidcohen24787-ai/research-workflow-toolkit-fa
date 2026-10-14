@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.2",
+  "recipe_id": "systematic-review",
+  "title": "مرور نظام‌مند",
+  "workflows": [
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05",
+    "W06",
+    "W10",
+    "W11",
+    "W12"
+  ],
+  "optional_workflows": [],
+  "adaptation_notes": "پروتکل، ثبت راهبرد جست‌وجو، غربالگری قابل بازبینی و راهنمای گزارش PRISMA متناسب. قواعد خاص حوزه را نیز بررسی کنید.",
+  "reporting_guideline_hint": "PRISMA 2020 where applicable",
+  "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+  "human_approvals_required": true
+}

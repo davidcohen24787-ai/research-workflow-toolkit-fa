@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.2",
+  "recipe_id": "qualitative-study",
+  "title": "پژوهش کیفی",
+  "workflows": [
+    "W01",
+    "W02",
+    "W07",
+    "W08",
+    "W09",
+    "W10",
+    "W11",
+    "W12"
+  ],
+  "optional_workflows": [
+    "W03",
+    "W05",
+    "W06"
+  ],
+  "adaptation_notes": "W09 را برای کدگذاری و تحلیل کیفی متناسب بازپیکربندی کنید؛ آن را معادل اجرای آزمون کمی تلقی نکنید. بازبینی انسانی متن مصاحبه و محرمانگی لازم است.",
+  "reporting_guideline_hint": "SRQR/COREQ when appropriate",
+  "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+  "human_approvals_required": true
+}

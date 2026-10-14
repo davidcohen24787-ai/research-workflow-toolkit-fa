@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Workflow Toolkit Workflow",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "workflow_id",
+    "title",
+    "tasks",
+    "human_gate",
+    "modes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2"
+    },
+    "workflow_id": {
+      "type": "string",
+      "pattern": "^W(0[1-9]|1[0-2])$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "human_gate": {
+      "type": "string"
+    },
+    "modes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "solo",
+          "supervised",
+          "agentic-conditional"
+        ]
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "role",
+          "depends_on",
+          "output",
+          "gate"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "specialist",
+              "reviewer",
+              "tool",
+              "human"
+            ]
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "output": {
+            "type": "string"
+          },
+          "gate": {
+            "enum": [
+              "HUMAN_APPROVAL",
+              "DELIVERY_CHECK",
+              "INDEPENDENT_REVIEW"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

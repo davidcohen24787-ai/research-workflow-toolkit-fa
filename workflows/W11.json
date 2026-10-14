@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.2",
+  "workflow_id": "W11",
+  "title": "داوری مستقل و اصلاح کنترل‌شده",
+  "research_stage": "W11",
+  "purpose": "چند داور مستقل با معیار مشترک؛ داور حکم، تیکت مجاز، ویرایش حداقلی و diff",
+  "required_inputs": "baseline قفل‌شده، معیارها، اسناد شاهد، گزارش‌ها",
+  "expected_output": "گزارش اختلاف‌ها، فهرست تیکت‌ها، diff و نسخه نهایی پیشنهادی",
+  "modes": [
+    "solo",
+    "supervised",
+    "agentic-conditional"
+  ],
+  "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+  "decision_owner": "researcher",
+  "human_gate": "حکم علمی حساس و ویرایش خارج از تیکت مجوز انسانی لازم دارد",
+  "tasks": [
+    {
+      "id": "reviewers",
+      "title": "داوری مستقل و بدون مشاهده گزارش یکدیگر",
+      "role": "reviewer",
+      "depends_on": [],
+      "output": "W11_reviewers.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "adjudicate",
+      "title": "داوری بر اساس شواهد نه رأی اکثریت",
+      "role": "reviewer",
+      "depends_on": [
+        "reviewers"
+      ],
+      "output": "W11_adjudicate.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "tickets",
+      "title": "فقط تغییرات پذیرفته‌شده را تیکت کن",
+      "role": "specialist",
+      "depends_on": [
+        "adjudicate"
+      ],
+      "output": "W11_tickets.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "edit",
+      "title": "اعمال محدود و diff سطربه‌سطر",
+      "role": "tool",
+      "depends_on": [
+        "tickets"
+      ],
+      "output": "W11_edit.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "approve",
+      "title": "تأیید انسانیِ نتیجه یا حفظ بی‌تغییر baseline",
+      "role": "human",
+      "depends_on": [
+        "edit"
+      ],
+      "output": "W11_approve.md",
+      "gate": "HUMAN_APPROVAL"
+    }
+  ],
+  "acceptance": [
+    "همه خروجی‌های لازم واقعاً وجود دارند",
+    "منبع، نسخه و محدودیت دسترسی روشن است",
+    "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+    "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+  ],
+  "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+  "risk_tier": "high"
+}

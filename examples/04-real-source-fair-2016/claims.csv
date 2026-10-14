@@ -1,0 +1,7 @@
+claim_id,status,source_doi,locator
+C01,DIRECT,10.1038/sdata.2016.18,"Introduction; Box 2"
+C02,DIRECT,10.1038/sdata.2016.18,"Introduction; The FAIR Guiding Principles in detail"
+C03,DIRECT,10.1038/sdata.2016.18,"Machine-actionability definition"
+C04,CONTRADICTED,10.1038/sdata.2016.18,"The FAIR Guiding Principles in detail"
+C05,UNSUPPORTED,10.1038/sdata.2016.18,"Relevant sections read"
+C06,CONTRADICTED,10.1038/sdata.2016.18,"The Principles precede implementation"

@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.2",
+  "workflow_id": "W05",
+  "title": "خواندن منبع و استخراج شواهد",
+  "research_stage": "W05",
+  "purpose": "برای هر منبع یک مالک؛ ساخت ماتریس، نقد در گذر جدا و پالایش نتیجه",
+  "required_inputs": "منابع منتخب و نسخه‌های واقعاً قابل خواندن",
+  "expected_output": "ماتریس شاهد منبع‌به‌ادعا با مکان‌یاب و وضعیت دسترسی",
+  "modes": [
+    "solo",
+    "supervised",
+    "agentic-conditional"
+  ],
+  "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+  "decision_owner": "researcher",
+  "human_gate": "پیش از استناد، نسبت هر شاهد به ادعا و نسخه منبع تأیید شود",
+  "tasks": [
+    {
+      "id": "matrix",
+      "title": "گذر ۱: استخراج ادعامحور از منبع اصلی",
+      "role": "specialist",
+      "depends_on": [],
+      "output": "W05_matrix.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "selfreview",
+      "title": "گذر ۲: چالش مستقل زمانی در همان Chat، نه استقلال بین‌عاملی",
+      "role": "specialist",
+      "depends_on": [
+        "matrix"
+      ],
+      "output": "W05_selfreview.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "filter",
+      "title": "گذر ۳: حذف ردیف‌های بی‌ارزش و نگهداشت قیود",
+      "role": "specialist",
+      "depends_on": [
+        "selfreview"
+      ],
+      "output": "W05_filter.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "verify",
+      "title": "کنترل مکان‌یاب و شاهد مهم توسط داور دیگر",
+      "role": "reviewer",
+      "depends_on": [
+        "filter"
+      ],
+      "output": "W05_verify.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "accept",
+      "title": "تصویب انسانی نتیجهٔ علمی و تعیین وضعیت نهایی",
+      "role": "human",
+      "depends_on": [
+        "verify"
+      ],
+      "output": "W05_accept.md",
+      "gate": "HUMAN_APPROVAL"
+    }
+  ],
+  "acceptance": [
+    "همه خروجی‌های لازم واقعاً وجود دارند",
+    "منبع، نسخه و محدودیت دسترسی روشن است",
+    "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+    "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+  ],
+  "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+  "risk_tier": "medium"
+}

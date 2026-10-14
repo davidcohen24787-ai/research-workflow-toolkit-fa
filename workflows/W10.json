@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.2",
+  "workflow_id": "W10",
+  "title": "نگارش علمی خلاقانه و مستند",
+  "research_stage": "W10",
+  "purpose": "پیش‌نویس‌های متفاوت، انتخاب نقادانه، شواهد واقعی، توضیح عملیاتی، ویراستاری و تأیید",
+  "required_inputs": "پرسش‌ها و Evidence Packetهای پذیرفته‌شده، شیوه‌نامه",
+  "expected_output": "متن مستند و قابل‌وارسی با فهرست ارجاعات",
+  "modes": [
+    "solo",
+    "supervised",
+    "agentic-conditional"
+  ],
+  "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+  "decision_owner": "researcher",
+  "human_gate": "هیچ متن پیش از تأیید صریح پژوهشگر FINAL نشود",
+  "tasks": [
+    {
+      "id": "drafts",
+      "title": "دو پیش‌نویس مستقلِ فکری بدون جعل استناد",
+      "role": "specialist",
+      "depends_on": [],
+      "output": "W10_drafts.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "choose",
+      "title": "مقایسه، انتخاب پایه و تلفیق گزینشی",
+      "role": "specialist",
+      "depends_on": [
+        "drafts"
+      ],
+      "output": "W10_choose.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "sources",
+      "title": "بازبینی شواهد واقعی و نگارش مستند",
+      "role": "specialist",
+      "depends_on": [
+        "choose"
+      ],
+      "output": "W10_sources.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "deepreview",
+      "title": "ممیزی پوشش، دلالت، محدودیت و خوانایی",
+      "role": "reviewer",
+      "depends_on": [
+        "sources"
+      ],
+      "output": "W10_deepreview.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "approve",
+      "title": "تأیید متن نهایی و انتشار/ثبت کتابنامه",
+      "role": "human",
+      "depends_on": [
+        "deepreview"
+      ],
+      "output": "W10_approve.md",
+      "gate": "HUMAN_APPROVAL"
+    }
+  ],
+  "acceptance": [
+    "همه خروجی‌های لازم واقعاً وجود دارند",
+    "منبع، نسخه و محدودیت دسترسی روشن است",
+    "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+    "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+  ],
+  "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+  "risk_tier": "medium"
+}

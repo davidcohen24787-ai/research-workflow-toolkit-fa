@@ -1,0 +1,13 @@
+{
+  "data_kind": "SYNTHETIC_NOT_RESEARCH",
+  "n": 5,
+  "mean_change": 0.6,
+  "median_change": 1,
+  "differences": [
+    1,
+    0,
+    1,
+    1,
+    0
+  ]
+}

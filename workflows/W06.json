@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.2",
+  "workflow_id": "W06",
+  "title": "سنتز ادعامحور و تعیین خلأ",
+  "research_stage": "W06",
+  "purpose": "ترکیب شواهد بر اساس پرسش، کیفیت، مستقیم‌بودن و تعارض؛ تفکیک ندانسته‌ها",
+  "required_inputs": "ماتریس‌های پذیرفته‌شده و پروتکل",
+  "expected_output": "Evidence Packet شامل ادعا، شاهد، ضدشاهد، محدودیت و شکاف",
+  "modes": [
+    "solo",
+    "supervised",
+    "agentic-conditional"
+  ],
+  "capability_note": "agentic-conditional فقط هنگامی فعال است که توان عملیاتی، دسترسی و مجوزها احراز شوند؛ صرف نام Work تضمین اجرای Chat نیست.",
+  "decision_owner": "researcher",
+  "human_gate": "ادعای اشباع بدون بررسی خانواده‌های لازم ممنوع",
+  "tasks": [
+    {
+      "id": "map",
+      "title": "تجمیع ادعاها و دسته‌بندی شاهد مستقیم/انتقالی",
+      "role": "specialist",
+      "depends_on": [],
+      "output": "W06_map.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "conflict",
+      "title": "تحلیل تعارض و وابستگی منابع",
+      "role": "specialist",
+      "depends_on": [
+        "map"
+      ],
+      "output": "W06_conflict.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "gaps",
+      "title": "ثبت خلأ مؤثر و وضعیت‌های متفاوت آمادگی",
+      "role": "specialist",
+      "depends_on": [
+        "conflict"
+      ],
+      "output": "W06_gaps.md",
+      "gate": "DELIVERY_CHECK"
+    },
+    {
+      "id": "adjudicate",
+      "title": "داوری علمیِ پرریسک بر اساس متن شاهد",
+      "role": "reviewer",
+      "depends_on": [
+        "gaps"
+      ],
+      "output": "W06_adjudicate.md",
+      "gate": "INDEPENDENT_REVIEW"
+    },
+    {
+      "id": "accept",
+      "title": "تصویب انسانی نتیجهٔ علمی و تعیین وضعیت نهایی",
+      "role": "human",
+      "depends_on": [
+        "adjudicate"
+      ],
+      "output": "W06_accept.md",
+      "gate": "HUMAN_APPROVAL"
+    }
+  ],
+  "acceptance": [
+    "همه خروجی‌های لازم واقعاً وجود دارند",
+    "منبع، نسخه و محدودیت دسترسی روشن است",
+    "منطق پذیرش و موارد حل‌نشده ثبت شده‌اند",
+    "هیچ گذر مشروط یا انسانی بی‌مجوز طی نشده است"
+  ],
+  "on_failure": "BLOCKED یا NEEDS_FIX؛ بدون جعل خروجی یا شروع خودکار مرحله وابسته",
+  "risk_tier": "medium"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.2",
+  "recipe_id": "conceptual",
+  "title": "پژوهش مفهومی و نظری",
+  "workflows": [
+    "W01",
+    "W03",
+    "W05",
+    "W06",
+    "W10",
+    "W11",
+    "W12"
+  ],
+  "optional_workflows": [
+    "W02"
+  ],
+  "adaptation_notes": "از پروتکل رسمی کامل فقط در صورت الزام روش یا داوری استفاده کنید. شواهد منبعی را از سنتز طراحی جدا کنید.",
+  "reporting_guideline_hint": "methodological fit",
+  "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+  "human_approvals_required": true
+}

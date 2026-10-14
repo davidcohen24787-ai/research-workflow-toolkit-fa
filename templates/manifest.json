@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.2",
+  "project_name": "[عنوان پژوهش]",
+  "workflow_id": "W05",
+  "execution_mode": "solo",
+  "canonical_inputs": [
+    {
+      "path": "sources/example.pdf",
+      "version": "v1",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "W05-matrix",
+      "status": "QUEUED",
+      "artifact": null,
+      "approved_by": null
+    }
+  ],
+  "decisions": [],
+  "blockers": [],
+  "approval_log": [],
+  "next_action": "تأیید خوانایی و نسخه منبع",
+  "public_release_approved": false
+}

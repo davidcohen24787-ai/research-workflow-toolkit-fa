@@ -1,0 +1,25 @@
+{
+  "schema_version": "0.2",
+  "recipe_id": "computational-design",
+  "title": "پژوهش محاسباتی و طراحی سامانه",
+  "workflows": [
+    "W01",
+    "W02",
+    "W03",
+    "W05",
+    "W06",
+    "W07",
+    "W08",
+    "W09",
+    "W10",
+    "W11",
+    "W12"
+  ],
+  "optional_workflows": [
+    "W04"
+  ],
+  "adaptation_notes": "نشت داده، بازتولید آزمایش، baseline، انحراف معیار و بررسی ریسک عملیاتی را ثبت کنید. خروجی کد جای شاهد تجربی نیست.",
+  "reporting_guideline_hint": "reproducible computation",
+  "status": "DESIGN_TEMPLATE_NOT_EVALUATED",
+  "human_approvals_required": true
+}

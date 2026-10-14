@@ -1,0 +1,62 @@
+{
+  "schema_version": "0.2",
+  "project_name": "مطالعه آزمایشی",
+  "workflow_id": "W05",
+  "execution_mode": "supervised",
+  "canonical_inputs": [],
+  "jobs": [
+    {
+      "id": "matrix",
+      "role": "specialist",
+      "status": "QUEUED",
+      "depends_on": [],
+      "artifact": null,
+      "approved_by": null
+    },
+    {
+      "id": "selfreview",
+      "role": "specialist",
+      "status": "QUEUED",
+      "depends_on": [
+        "matrix"
+      ],
+      "artifact": null,
+      "approved_by": null
+    },
+    {
+      "id": "filter",
+      "role": "specialist",
+      "status": "QUEUED",
+      "depends_on": [
+        "selfreview"
+      ],
+      "artifact": null,
+      "approved_by": null
+    },
+    {
+      "id": "verify",
+      "role": "reviewer",
+      "status": "QUEUED",
+      "depends_on": [
+        "filter"
+      ],
+      "artifact": null,
+      "approved_by": null
+    },
+    {
+      "id": "accept",
+      "role": "human",
+      "status": "QUEUED",
+      "depends_on": [
+        "verify"
+      ],
+      "artifact": null,
+      "approved_by": null
+    }
+  ],
+  "decisions": [],
+  "blockers": [],
+  "approval_log": [],
+  "public_release_approved": false,
+  "next_action": "گذر ۱: استخراج ادعامحور از منبع اصلی"
+}
