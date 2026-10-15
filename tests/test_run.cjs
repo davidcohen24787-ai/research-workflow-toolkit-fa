@@ -44,6 +44,7 @@ test('reopening an accepted ancestor invalidates ALL downstream approvals',()=>{
 test('export-import roundtrip preserves user decisions and is not auto validation',()=>{
  let m=entered();m=complete(m,'W01-scope');m=E.importPlan(JSON.parse(JSON.stringify(m)));
  assert.equal(m.jobs[0].status,'ACCEPTED');assert.match(m._tracking_note,/خوداظهاری/);
+ assert.equal(m.approval_log.length,1);assert.equal(m.approval_log[0].reviewer,'پژوهشگر');
  assert.equal(m.jobs[1].status,'QUEUED');
 });
 test('reject malicious, duplicate, circular or oversized manifests',()=>{
