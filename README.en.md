@@ -11,3 +11,7 @@ Content: CC BY 4.0. Code: MIT. Not affiliated with or endorsed by OpenAI or GitH
 The [offline, no-code workflow designer](docs/index.html) builds structured research plans, job cards and JSON manifests locally in your browser using canonical workflow definitions. It does not perform research, send data to a service, run ChatGPT Work, grant approvals or independently validate scientific claims. See the [Studio guide](docs/10-studio-guide.md).
 
 Run `python tools/generate_studio_catalog.py --check` and `node --test tests/test_studio.cjs` alongside the original Python checks. A human study or live multi-agent pilot has **not** been completed.
+
+## Native ChatGPT/Gemini assistant setup (no model API)
+
+Use the [Persian native-chat wizard](docs/chat.html) to generate ChatGPT Project instructions, Gemini first-turn prompts, a shared research protocol, and a manually transferable session handoff. It uses existing subscriptions without paid model API calls. It does **not** automatically control other conversations or share memory between companies. See [subscription-first guide](docs/13-chat-first-with-subscriptions.md).
