@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.2",
+  "generated_by": "DEMO_SYNTHETIC",
+  "project_name": "نمونه ساختگی مدیریت پژوهش",
+  "recipe_id": null,
+  "workflows": [
+    "W01"
+  ],
+  "execution_mode": "solo",
+  "public_release_approved": false,
+  "jobs": [
+    {
+      "id": "W01-scope",
+      "title": "صورت‌بندی پرسش فرضی",
+      "role": "specialist",
+      "gate": "DELIVERY_CHECK",
+      "status": "QUEUED",
+      "depends_on": [],
+      "expected_output": "پرسش پژوهش و دامنه"
+    },
+    {
+      "id": "W01-approve",
+      "title": "تأیید پرسش توسط پژوهشگر",
+      "role": "human",
+      "gate": "HUMAN_APPROVAL",
+      "status": "QUEUED",
+      "depends_on": [
+        "W01-scope"
+      ],
+      "expected_output": "صورت‌جلسه تصمیم"
+    }
+  ]
+}
